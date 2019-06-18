@@ -13,6 +13,15 @@ export default function (element) {
   const enabledElement = getEnabledElement(element);
   const { image } = enabledElement;
 
+  enabledElement.viewport.displayedArea.tlhc = {
+    x: 1,
+    y: 1
+  };
+  enabledElement.viewport.displayedArea.brhc = {
+    x: image.columns,
+    y: image.rows
+  };
+
   // The new scale is the minimum of the horizontal and vertical scale values
   enabledElement.viewport.scale = getImageFitScale(enabledElement.canvas, image, enabledElement.viewport.rotation).scaleFactor;
 
