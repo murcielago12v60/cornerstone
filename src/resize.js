@@ -55,7 +55,7 @@ function setCanvasSize (element, canvas) {
  * @param {number} oldCanvasHeight The height of the canvas before the resize
  * @return {Boolean} true if it fitted the windows, false otherwise
  */
-function wasFitToWindow (enabledElement, oldCanvasWidth, oldCanvasHeight) {
+export function wasFitToWindow (enabledElement, oldCanvasWidth, oldCanvasHeight) {
   const scale = enabledElement.viewport.scale;
   const imageSize = getImageSize(enabledElement.image, enabledElement.viewport.rotation);
   const imageWidth = Math.round(imageSize.width * scale);

@@ -5,6 +5,7 @@ import now from './internal/now.js';
 import { setLayerImage } from './layers.js';
 import triggerEvent from './triggerEvent.js';
 import EVENTS from './events.js';
+import resize, { wasFitToWindow } from './resize.js';
 
 /**
  * Sets a new image object for a given element.
@@ -27,6 +28,14 @@ export default function (element, image, viewport) {
 
   const enabledElement = getEnabledElement(element);
   const oldImage = enabledElement.image;
+  const oldCanvasWidth = enabledElement.canvas.width;
+  const oldCanvasHeight = enabledElement.canvas.height;
+
+  let wasFittedToWindow = false;
+
+  if (enabledElement.viewport !== undefined) {
+    wasFittedToWindow = wasFitToWindow(enabledElement, oldCanvasWidth, oldCanvasHeight);
+  }
 
   enabledElement.image = image;
 
@@ -45,6 +54,10 @@ export default function (element, image, viewport) {
         enabledElement.viewport[attrname] = viewport[attrname];
       }
     }
+  }
+
+  if (wasFittedToWindow) {
+    resize(element, true);
   }
 
   let frameRate;
